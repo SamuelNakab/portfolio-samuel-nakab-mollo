@@ -55,12 +55,12 @@ const interior = ubicar(orbita.interior, 45);
 
   .orbita { --ficha: 66px; position: relative; width: 100%; max-width: 540px; aspect-ratio: 1 / 1; margin: 0 auto; }
   .anillo { position: absolute; border-radius: 50%; border: 1.5px dashed rgba(var(--tinta-rgb), .6); }
-  .a1 { inset: 0; animation: giro 70s linear infinite; }
-  .a2 { inset: 22%; animation: giro 46s linear infinite reverse; }
+  .a1 { inset: 0; animation: giro 90s linear infinite; }
+  .a2 { inset: 22%; animation: giro 60s linear infinite reverse; }
   .lugar { position: absolute; inset: 0; }
   .pos { position: absolute; left: 50%; top: 0; width: var(--ficha); height: var(--ficha); margin: calc(var(--ficha) / -2) 0 0 calc(var(--ficha) / -2); }
-  .a1 .contragiro { animation: giro 70s linear infinite reverse; }
-  .a2 .contragiro { animation: giro 46s linear infinite; }
+  .a1 .contragiro { animation: giro 90s linear infinite reverse; }
+  .a2 .contragiro { animation: giro 60s linear infinite; }
   .ficha {
     width: var(--ficha); height: var(--ficha); background: var(--blanco); border: 1.5px solid var(--borde);
     border-radius: 14px; display: flex; align-items: center; justify-content: center;
