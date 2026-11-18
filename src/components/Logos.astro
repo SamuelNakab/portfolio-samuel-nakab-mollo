@@ -1,0 +1,14 @@
+---
+// Fila de logos con el nombre al pasar el mouse
+const { items, tam = 46, centrado = false } = Astro.props;
+const icono = Math.round(tam / 2);
+---
+<div class="logos" style={centrado ? 'justify-content: center; gap: 10px;' : undefined}>
+  {items.map((t) => (
+    <span class="tk" data-name={t.nombre} tabindex="0" role="img" aria-label={t.nombre}>
+      <span class="logo-caja" style={`width:${tam}px;height:${tam}px;`}>
+        <img src={t.logo} alt="" width={icono} height={icono} loading="lazy" />
+      </span>
+    </span>
+  ))}
+</div>

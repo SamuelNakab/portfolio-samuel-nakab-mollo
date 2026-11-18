@@ -1,0 +1,20 @@
+---
+import { cinta } from '../data/contenido.js';
+// Se duplica la lista para que el movimiento no tenga cortes
+const items = cinta.concat(cinta);
+---
+<div class="cinta" role="img" aria-label={'Tecnologías que uso: ' + cinta.map((t) => t.nombre).join(', ')}>
+  <div class="pista" aria-hidden="true">
+    {items.map((t) => (
+      <span class="item mono"><span class="caja"><img src={t.logo} alt="" width="22" height="22" /></span>{t.nombre}</span>
+    ))}
+  </div>
+</div>
+
+<style>
+  .cinta { background: var(--tinta); overflow: hidden; padding: 24px 0; }
+  .pista { display: flex; gap: 56px; width: max-content; animation: cinta 44s linear infinite; }
+  .item { display: inline-flex; align-items: center; gap: 14px; flex: none; font-size: 16px; color: var(--blanco); }
+  .caja { width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; background: var(--blanco); border-radius: 8px; }
+  @keyframes cinta { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+</style>

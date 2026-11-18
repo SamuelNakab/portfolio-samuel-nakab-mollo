@@ -1,0 +1,56 @@
+---
+import '@fontsource/space-grotesk/400.css';
+import '@fontsource/space-grotesk/500.css';
+import '@fontsource/space-grotesk/700.css';
+import '@fontsource/jetbrains-mono/400.css';
+import '@fontsource/jetbrains-mono/700.css';
+import '../styles/global.css';
+
+const titulo = 'Samuel Nakab Mollo · Backend & AI Developer';
+const descripcion =
+  'Portfolio de Samuel Nakab Mollo, desarrollador backend y de IA. Proyectos con Node.js, Python, machine learning y datos.';
+const url = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : undefined;
+const imagen = Astro.site ? new URL('/og.png', Astro.site).href : '/og.png';
+---
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{titulo}</title>
+    <meta name="description" content={descripcion} />
+    <meta name="theme-color" content="#12372a" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    {url && <link rel="canonical" href={url} />}
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={titulo} />
+    <meta property="og:description" content={descripcion} />
+    <meta property="og:image" content={imagen} />
+    {url && <meta property="og:url" content={url} />}
+    <meta name="twitter:card" content="summary_large_image" />
+    <script is:inline>document.documentElement.classList.add('js');</script>
+  </head>
+  <body>
+    <slot />
+    <script>
+      // Muestra cada bloque .rv cuando entra en pantalla
+      const bloques = document.querySelectorAll('.rv');
+      if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver(
+          (entradas) => {
+            entradas.forEach((e) => {
+              if (e.isIntersecting) {
+                e.target.classList.add('in');
+                io.unobserve(e.target);
+              }
+            });
+          },
+          { threshold: 0.12 }
+        );
+        bloques.forEach((b) => io.observe(b));
+      } else {
+        bloques.forEach((b) => b.classList.add('in'));
+      }
+    </script>
+  </body>
+</html>

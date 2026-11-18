@@ -1,0 +1,61 @@
+---
+import Proyecto from './Proyecto.astro';
+import Logos from './Logos.astro';
+import { proyectosLaborales, proyectosPersonales, proximamente as m } from '../data/contenido.js';
+---
+<section id="proyectos" class="contenedor proyectos">
+  <div class="rv titulo-seccion cabecera">
+    <span class="mini" aria-hidden="true"></span>
+    <h2>Proyectos</h2>
+  </div>
+
+  {proyectosLaborales.map((p, i) => <Proyecto p={p} grande invertido={i % 2 === 1} />)}
+
+  <div class="rv titulo-seccion subtitulo"><h3>Proyectos personales</h3></div>
+
+  {proyectosPersonales.map((p, i) => <Proyecto p={p} invertido={i % 2 === 1} />)}
+
+  <article class="rv proximo">
+    <div class="visual">
+      <div class="grande" aria-hidden="true"></div>
+      <span class="chip mono">Próximamente</span>
+      <span class="flujo mono">{m.flujo}</span>
+    </div>
+    <div class="info">
+      <p class="mono etiqueta"><span class="punto" aria-hidden="true"></span>{m.numero} · {m.etiqueta}</p>
+      <h3>{m.titulo}</h3>
+      <p class="resumen">{m.resumen}</p>
+      <ul>{m.puntos.map((x) => <li>{x}</li>)}</ul>
+      <Logos items={m.techs} tam={42} />
+    </div>
+  </article>
+</section>
+
+<style>
+  .proyectos { padding-bottom: 112px; }
+  .cabecera { margin-bottom: 64px; }
+  .subtitulo { margin: 16px 0 56px; }
+  .subtitulo h3 { font-weight: 700; font-size: 40px; letter-spacing: -.035em; }
+  .proximo { display: flex; flex-wrap: wrap; gap: 48px; align-items: center; }
+  .visual {
+    flex: 1 1 440px; min-width: 0; aspect-ratio: 16 / 10; background: var(--tinte);
+    border: 1.5px dashed rgba(var(--tinta-rgb), .35); border-radius: 14px; position: relative; overflow: hidden;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; text-align: center; padding: 16px;
+  }
+  .visual .grande { width: 300px; height: 300px; left: 50%; top: 50%; margin: -150px 0 0 -150px; }
+  .chip { position: relative; padding: 10px 20px; background: var(--tinta); color: var(--blanco); border-radius: 6px; font-size: 15px; font-weight: 700; }
+  .flujo { position: relative; font-size: 14px; }
+  .info { flex: 1 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 16px; }
+  .etiqueta { display: flex; align-items: center; gap: 10px; font-size: 14px; }
+  .punto { width: 10px; height: 10px; border-radius: 50%; border: 2px solid var(--tinta); flex: none; }
+  .info h3 { font-weight: 700; font-size: 44px; line-height: 1; letter-spacing: -.045em; }
+  .resumen { font-size: 17px; line-height: 1.6; }
+  ul { margin: 0; padding-left: 20px; font-size: 15px; line-height: 1.75; }
+  @media (max-width: 720px) {
+    .proyectos { padding-bottom: 88px; }
+    .subtitulo h3 { font-size: 32px; }
+    .proximo { gap: 28px; }
+    .info h3 { font-size: 38px; }
+    .flujo { font-size: 12px; }
+  }
+</style>

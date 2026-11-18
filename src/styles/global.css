@@ -1,0 +1,104 @@
+:root {
+  --tinta: #12372a;
+  --tinta-rgb: 18, 55, 42;
+  --rojo: #e63946;
+  --durazno: #f4a261;
+  --amarillo: #ffd166;
+  --verde-suave: #5f8f7b;
+  --borde: #dfe8e3;
+  --tinte: #f3f7f5;
+  --tinte-rojo: #fce6e8;
+  --tinte-durazno: #fdf0e4;
+  --tinte-amarillo: #fff6dc;
+  --blanco: #ffffff;
+  --sans: 'Space Grotesk', system-ui, sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, monospace;
+  --gutter: 40px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--blanco);
+  color: var(--tinta);
+  font-family: var(--sans);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+img { max-width: 100%; }
+a { color: var(--tinta); }
+a:hover { color: var(--rojo); }
+:focus-visible { outline: 3px solid var(--rojo); outline-offset: 3px; border-radius: 4px; }
+h1, h2, h3, p { margin: 0; }
+.mono { font-family: var(--mono); }
+
+.contenedor { max-width: 1280px; margin: 0 auto; padding: 0 var(--gutter); }
+
+/* Botones */
+.boton {
+  display: inline-flex; align-items: center; min-height: 54px; padding: 0 26px;
+  border-radius: 10px; font-weight: 700; text-decoration: none;
+  transition: transform .15s, background .15s, color .15s;
+}
+.boton:hover { transform: translateY(-2px); }
+.boton-lleno { background: var(--tinta); color: var(--blanco); }
+.boton-lleno:hover { background: var(--rojo); color: var(--blanco); }
+.boton-borde { border: 1.5px solid var(--tinta); }
+.boton-chico { align-self: flex-start; min-height: 48px; padding: 0 22px; border-radius: 8px; font-weight: 600; background: var(--tinta); color: var(--blanco); }
+.boton-chico:hover { background: var(--rojo); color: var(--blanco); }
+
+/* Logos con nombre al pasar el mouse */
+.tk { position: relative; display: inline-flex; }
+.tk::after {
+  content: attr(data-name); position: absolute; left: 50%; bottom: calc(100% + 8px);
+  transform: translateX(-50%) translateY(4px); background: var(--tinta); color: var(--blanco);
+  font: 700 12px/1 var(--mono); padding: 7px 9px; border-radius: 5px; white-space: nowrap;
+  opacity: 0; pointer-events: none; transition: opacity .15s, transform .15s; z-index: 5;
+}
+.tk:hover::after, .tk:focus-visible::after { opacity: 1; transform: translateX(-50%); }
+.tk:hover > span { transform: translateY(-3px); }
+.logo-caja {
+  display: flex; align-items: center; justify-content: center;
+  background: var(--tinte); border-radius: 10px; transition: transform .15s;
+}
+.logos { display: flex; flex-wrap: wrap; gap: 8px; }
+
+/* Anillos decorativos */
+@keyframes giro { to { transform: rotate(360deg); } }
+.mini {
+  position: relative; display: inline-block; width: 30px; height: 30px; flex: none;
+  border: 1.5px dashed var(--rojo); border-radius: 50%; animation: giro 8s linear infinite;
+}
+.mini::after {
+  content: ''; position: absolute; top: -5px; left: 50%; width: 9px; height: 9px;
+  margin-left: -4.5px; border-radius: 50%; background: var(--durazno);
+}
+.grande {
+  position: absolute; border: 1.5px dashed rgba(var(--tinta-rgb), .32); border-radius: 50%;
+  animation: giro 90s linear infinite; pointer-events: none;
+}
+.grande::after {
+  content: ''; position: absolute; top: -8px; left: 50%; width: 16px; height: 16px;
+  margin-left: -8px; border-radius: 50%; background: var(--amarillo);
+}
+
+/* Aparición al hacer scroll (solo si hay JS) */
+.js .rv { opacity: 0; transform: translateY(24px); transition: opacity .8s ease, transform .8s ease; }
+.js .rv.in { opacity: 1; transform: none; }
+.sube { transition: transform .2s; }
+.sube:hover { transform: translateY(-4px); }
+
+/* Títulos de sección */
+.titulo-seccion { display: flex; flex-direction: column; align-items: center; gap: 14px; text-align: center; }
+.titulo-seccion h2 { font-weight: 700; font-size: clamp(48px, 6vw, 88px); line-height: .95; letter-spacing: -.045em; }
+
+@media (max-width: 720px) {
+  :root { --gutter: 16px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .js .rv { opacity: 1; transform: none; }
+}

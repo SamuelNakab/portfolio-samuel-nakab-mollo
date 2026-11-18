@@ -1,0 +1,24 @@
+---
+import { perfil } from '../data/contenido.js';
+---
+<header class="contenedor encabezado">
+  <a href="#inicio" class="marca"><span class="mini" aria-hidden="true"></span>{perfil.nombre}</a>
+  <nav aria-label="Secciones">
+    <a href="#habilidades">Habilidades</a>
+    <a href="#proyectos">Proyectos</a>
+    <a href="#contacto" class="nav-contacto">Contacto</a>
+  </nav>
+</header>
+
+<style>
+  .encabezado { display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; align-items: center; padding-top: 30px; padding-bottom: 30px; }
+  .marca { display: inline-flex; align-items: center; gap: 12px; font-weight: 700; font-size: 18px; text-decoration: none; }
+  nav { display: flex; flex-wrap: wrap; gap: 6px; font-size: 16px; font-weight: 500; }
+  nav a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; text-decoration: none; border-radius: 8px; }
+  .nav-contacto { background: var(--tinta); color: var(--blanco); padding: 0 20px; }
+  .nav-contacto:hover { background: var(--rojo); color: var(--blanco); }
+  @media (max-width: 520px) {
+    nav { width: 100%; justify-content: space-between; }
+    nav a { padding: 0 10px; }
+  }
+</style>

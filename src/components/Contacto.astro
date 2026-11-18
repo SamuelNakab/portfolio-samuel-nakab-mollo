@@ -1,0 +1,54 @@
+---
+import { contacto, perfil } from '../data/contenido.js';
+const redes = contacto.filter((c) => c.url);
+const anio = new Date().getFullYear();
+---
+<section id="contacto" class="contacto">
+  <div class="grande g1" aria-hidden="true"></div>
+  <div class="grande g2" aria-hidden="true"></div>
+  <div class="contenedor interior">
+    <div class="rv titulo-seccion cabecera">
+      <h2 class="hablemos">Hablemos<span>.</span></h2>
+      <p>Contame tu idea o tu problema y vemos cómo resolverlo.</p>
+    </div>
+    <div class="rv grilla">
+      {redes.map((c) => (
+        <a class="tarjeta" href={c.url} target="_blank" rel="noopener noreferrer" style={`border-top-color: ${c.color}`}>
+          <span class="fila"><img src={c.icono} alt="" width="30" height="30" /><span aria-hidden="true" class="flecha">↗</span></span>
+          <span>
+            <span class="red mono">{c.red}</span>
+            <span class="dato">{c.texto}</span>
+          </span>
+        </a>
+      ))}
+    </div>
+    <p class="pie mono">© {anio} {perfil.nombre}</p>
+  </div>
+</section>
+
+<style>
+  .contacto { position: relative; overflow: hidden; background: var(--tinte); }
+  .g1 { width: 760px; height: 760px; right: -240px; top: -280px; }
+  .g2 { width: 520px; height: 520px; left: -200px; bottom: -260px; animation-direction: reverse; }
+  .interior { position: relative; padding-top: 120px; padding-bottom: 56px; }
+  .cabecera { gap: 18px; margin-bottom: 56px; }
+  .hablemos { font-size: clamp(56px, 8vw, 128px) !important; line-height: .9 !important; letter-spacing: -.055em !important; }
+  .hablemos span { color: var(--rojo); }
+  .cabecera p { max-width: 480px; font-size: 20px; line-height: 1.55; }
+  .grilla { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr)); gap: 14px; }
+  .tarjeta {
+    display: flex; flex-direction: column; gap: 22px; padding: 26px; background: var(--blanco);
+    border: 1.5px solid var(--borde); border-top: 5px solid; border-radius: 16px; text-decoration: none;
+    transition: transform .15s, box-shadow .15s;
+  }
+  .tarjeta:hover { color: var(--tinta); transform: translateY(-3px); box-shadow: 0 16px 36px rgba(var(--tinta-rgb), .12); }
+  .fila { display: flex; justify-content: space-between; align-items: center; }
+  .flecha { font-size: 22px; }
+  .red { display: block; font-size: 13px; }
+  .dato { display: block; margin-top: 6px; font-size: 20px; font-weight: 700; overflow-wrap: anywhere; }
+  .pie { margin-top: 80px; padding-top: 24px; border-top: 1px solid var(--borde); font-size: 13px; text-align: center; }
+  @media (max-width: 720px) {
+    .interior { padding-top: 88px; }
+    .cabecera p { font-size: 18px; }
+  }
+</style>

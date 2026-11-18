@@ -1,0 +1,84 @@
+---
+import { perfil, orbita } from '../data/contenido.js';
+
+// Reparte los logos en ángulos iguales alrededor de cada anillo
+const ubicar = (items, desfase = 0) =>
+  items.map((t, i) => ({ ...t, angulo: desfase + (360 / items.length) * i }));
+const exterior = ubicar(orbita.exterior);
+const interior = ubicar(orbita.interior, 45);
+---
+<section id="inicio" class="contenedor inicio">
+  <div class="texto">
+    <h1>{perfil.nombreCorto[0]}<br />{perfil.nombreCorto[1]}</h1>
+    <p class="rol">{perfil.rol[0]} <span>&amp;</span> {perfil.rol[1]}</p>
+    <p class="descripcion">{perfil.descripcion}</p>
+    <div class="botones">
+      <a href="#proyectos" class="boton boton-lleno">Ver proyectos</a>
+      <a href="#contacto" class="boton boton-borde">Hablemos</a>
+    </div>
+  </div>
+
+  <div class="columna-orbita">
+    <div class="orbita" role="img" aria-label="Tecnologías que uso girando en órbita: Python, PyTorch, PostgreSQL, TensorFlow, Redis, Node.js, Django, scikit-learn, Express y pandas">
+      <div class="anillo a1">
+        {exterior.map((t) => (
+          <div class="lugar" style={`transform: rotate(${t.angulo}deg)`}>
+            <div class="pos"><div style={`transform: rotate(${-t.angulo}deg)`}><div class="contragiro">
+              <span class="ficha tk" data-name={t.nombre}><img src={t.logo} alt="" width="34" height="34" /></span>
+            </div></div></div>
+          </div>
+        ))}
+      </div>
+      <div class="anillo a2">
+        {interior.map((t) => (
+          <div class="lugar" style={`transform: rotate(${t.angulo}deg)`}>
+            <div class="pos"><div style={`transform: rotate(${-t.angulo}deg)`}><div class="contragiro">
+              <span class="ficha tk" data-name={t.nombre}><img src={t.logo} alt="" width="30" height="30" /></span>
+            </div></div></div>
+          </div>
+        ))}
+      </div>
+      <div class="centro" aria-hidden="true">{perfil.iniciales}</div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .inicio { overflow-x: clip; display: flex; flex-wrap: wrap; gap: 48px; align-items: center; padding-top: 72px; padding-bottom: 112px; }
+  .texto { flex: 1.15 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 28px; }
+  h1 { font-weight: 700; font-size: clamp(56px, 8.4vw, 128px); line-height: .88; letter-spacing: -.05em; }
+  .rol { font-weight: 500; font-size: clamp(32px, 4vw, 54px); line-height: 1.05; letter-spacing: -.03em; color: var(--rojo); }
+  .rol span { color: var(--durazno); }
+  .descripcion { max-width: 560px; font-size: 20px; line-height: 1.6; }
+  .botones { display: flex; flex-wrap: wrap; gap: 12px; }
+  .columna-orbita { flex: 1 1 420px; min-width: 0; }
+
+  .orbita { --ficha: 66px; position: relative; width: 100%; max-width: 540px; aspect-ratio: 1 / 1; margin: 0 auto; }
+  .anillo { position: absolute; border-radius: 50%; border: 1.5px dashed rgba(var(--tinta-rgb), .6); }
+  .a1 { inset: 0; animation: giro 70s linear infinite; }
+  .a2 { inset: 22%; animation: giro 46s linear infinite reverse; }
+  .lugar { position: absolute; inset: 0; }
+  .pos { position: absolute; left: 50%; top: 0; width: var(--ficha); height: var(--ficha); margin: calc(var(--ficha) / -2) 0 0 calc(var(--ficha) / -2); }
+  .a1 .contragiro { animation: giro 70s linear infinite reverse; }
+  .a2 .contragiro { animation: giro 46s linear infinite; }
+  .ficha {
+    width: var(--ficha); height: var(--ficha); background: var(--blanco); border: 1.5px solid var(--borde);
+    border-radius: 14px; display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 12px 26px rgba(var(--tinta-rgb), .12);
+  }
+  .ficha img { width: 50%; height: 50%; }
+  .orbita:hover .anillo, .orbita:hover .contragiro { animation-play-state: paused; }
+  .centro {
+    position: absolute; inset: 37%; border-radius: 50%; background: var(--tinta); color: var(--blanco);
+    display: flex; align-items: center; justify-content: center; font-weight: 700;
+    font-size: clamp(26px, 4vw, 42px); letter-spacing: -.04em;
+  }
+
+  @media (max-width: 720px) {
+    .inicio { padding-top: 32px; padding-bottom: 72px; gap: 56px; }
+    .texto { flex-basis: 100%; }
+    .descripcion { font-size: 18px; }
+    .orbita { --ficha: 48px; max-width: min(360px, calc(100% - 52px)); }
+    .ficha { border-radius: 11px; }
+  }
+</style>
